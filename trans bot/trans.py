@@ -8,11 +8,11 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
-from trans import translate_text
-from ciril_latin import cril_or_latin
 
-TOKEN = "7465508134:AAFnwbhDh1MWjkYviv3jpKULJReYhmqxRAI"
 
+# Bot token can be obtained via https://t.me/BotFather
+TOKEN = "7381288992:AAHLCfiH5xIGNRmWMFpmcW_ShCskmXpYhuY"
+# All handlers should be attached to the Router (or Dispatcher)
 
 dp = Dispatcher()
 
@@ -22,12 +22,13 @@ async def command_start_handler(message: Message) -> None:
     """
     This handler receives messages with `/start` command
     """
+    
     await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
 
 @dp.message()
-async def cril_lotin(msg: Message):
-    await msg.answer(cril_or_latin(msg.text))
-
+async def (msg:Message):
+    text = msg.text
+    await msg.answer((text))
 
 @dp.message()
 async def echo_handler(message: Message) -> None:
@@ -37,8 +38,10 @@ async def echo_handler(message: Message) -> None:
     By default, message handler will handle all message types (like a text, photo, sticker etc.)
     """
     try:
+        # Send a copy of the received message
         await message.send_copy(chat_id=message.chat.id)
     except TypeError:
+        # But not all the types is supported to be copied so need to handle it
         await message.answer("Nice try!")
 
 

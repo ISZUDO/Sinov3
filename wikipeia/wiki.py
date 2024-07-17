@@ -8,10 +8,12 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
-from wiki import wiki_bot
 
-TOKEN = "7007270186:AAFWvHZKO3xA7P7A-NFxGASII8_ZbYczT7k"
+from main import wiki_bot
 
+# Bot token can be obtained via https://t.me/BotFather
+TOKEN = "7381288992:AAHLCfiH5xIGNRmWMFpmcW_ShCskmXpYhuY"
+# All handlers should be attached to the Router (or Dispatcher)
 
 dp = Dispatcher()
 
@@ -21,9 +23,10 @@ async def command_start_handler(message: Message) -> None:
     """
     This handler receives messages with `/start` command
     """
+    
     await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
 
-@dp.message(CommandStart())
+@dp.message()
 async def wiki_bot_handler(msg:Message):
     text = msg.text
     await msg.answer(wiki_bot(text))
